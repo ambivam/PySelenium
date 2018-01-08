@@ -1,0 +1,6 @@
+username = 'root'
+password = 'root'
+showing = 'Past 30 Days'
+showingNeg = 'negative'
+Image1 = 'cms_1.jpg'
+image = 'cms_1'
