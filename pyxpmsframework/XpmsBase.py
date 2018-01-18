@@ -105,6 +105,19 @@ class XpmsBaseClass(object):
             self.logger.error('Unable To retrieve the text from the element')
             self.raiseException()
 
+    def verifyText(self,element,elementText):
+        try:
+            temElement = self.getElement(element)
+            self.logger.info('Into gettext method ')
+            if(str(temElement.text).lower() == str(elementText).lower()):
+                return True
+            else:
+                return False
+        except:
+            self.logger.error('Unable To verify the text'+elementText)
+            self.raiseException()
+
+
     def enterText(self,element,strText):
         try:
             temEle = self.getElement(element)

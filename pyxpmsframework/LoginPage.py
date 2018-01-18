@@ -8,10 +8,12 @@ from data import inputdata
 from pyxpmsframework.DashboardPage import Dashboard
 import allure
 import pytest
+
 from pyxpmsframework.XpmsBase import XpmsBaseClass
 from selenium.webdriver.remote.remote_connection import LOGGER
 
 class Login(XpmsBaseClass):
+
     def __init__(self,driver):
         LOGGER.setLevel(logging.WARNING)
         self.driver = driver
@@ -34,9 +36,15 @@ class Login(XpmsBaseClass):
         self.logger.info('Sign In clicked')
         self.click(elements.SignInEle)
 
-    @allure.step('Logging Into Console Application')
+    @allure.step('Logging Into Console Application ')
     def login(self,username,password):
         self.enterUserName(username)
         self.enterPassword(password)
         self.clickSignIn()
-        #return Dashboard(self.driver)
+        self.pause()
+
+
+    @allure.step('Verifying Login Text of Login Page ')
+    def verifyLoginText(self, loginText):
+        self.logger.info('Verifying Login text is displayed on Login Page ')
+        return self.verifyText(elements.LoginEle, inputdata.loginText)
