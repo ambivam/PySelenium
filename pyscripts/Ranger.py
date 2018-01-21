@@ -27,7 +27,11 @@ def setup_function(function):
     logger.setLevel(logging.INFO)
 #****************************************************************
 def teardown_function(function):
+    XpmsBaseClass().pause()
+    global driver
     driver.quit()
+    driver.close()
+
 
 #*****************************************************************
 @pytest.allure.step('To Test The Login Functionality ,Verifying admin Welcome Text and Logging out of admin page')

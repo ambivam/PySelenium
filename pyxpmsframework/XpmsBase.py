@@ -26,15 +26,19 @@ class XpmsBaseClass(object):
         self.driver.maximize_window()
 
 
+
     @staticmethod
     def getBrowser(browserName):
         if(str(browserName).lower() == 'chrome'):
-            if(XpmsBaseClass.browserDrivers['chrome'] is None):
-                filePath = os.path.abspath(__file__ + "/../../config/chromedriver")
-                XpmsBaseClass.browserDrivers['chrome'] = webdriver.Chrome(filePath)
-                return XpmsBaseClass.browserDrivers['chrome']
-            else:
-                return XpmsBaseClass.browserDrivers['chrome']
+            filePath = os.path.abspath(__file__ + "/../../config/chromedriver")
+            XpmsBaseClass.browserDrivers['chrome'] = webdriver.Chrome(filePath)
+            return XpmsBaseClass.browserDrivers['chrome']
+            #if(XpmsBaseClass.browserDrivers['chrome'] is None):
+                #filePath = os.path.abspath(__file__ + "/../../config/chromedriver")
+                #XpmsBaseClass.browserDrivers['chrome'] = webdriver.Chrome(filePath)
+                #return XpmsBaseClass.browserDrivers['chrome']
+            #else:
+                #return XpmsBaseClass.browserDrivers['chrome']
         elif(str(browserName).lower() == 'firefox'):
             if (XpmsBaseClass.browserDrivers['firefox'] is None):
                 filePath = os.path.abspath(__file__ + "/../../config/firefoxdriver")
@@ -163,6 +167,10 @@ class XpmsBaseClass(object):
     def pause(self):
         self.logger.info('Into pause')
         time.sleep(xpmsdata.sleepTime)
+
+    def pageLoadPause(self):
+        self.logger.info('Into pageload pause')
+        time.sleep(xpmsdata.pageLoadSleepTime)
 
     def getDriver(self):
         self.logger.info('getting The Driver')

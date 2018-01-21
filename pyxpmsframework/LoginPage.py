@@ -43,7 +43,6 @@ class Login(XpmsBaseClass):
         self.clickSignIn()
         self.pause()
 
-
     @allure.step('Verifying Login Text of Login Page ')
     def verifyLoginText(self, loginText):
         self.logger.info('Verifying Login text is displayed on Login Page ')

@@ -2,6 +2,8 @@ import xlrd
 import os
 from data import xpmsdata
 import json
+import allure
+import pytest
 
 class ExcelOperations:
 
@@ -67,5 +69,9 @@ class ExcelOperations:
         except:
             result_data = ''
 
+
     #*******************************************************
+    def reportResult(self,logger, Description, result):
+        with pytest.allure.step(Description+" , "+result):
+            logger.info(Description+" , "+ result)
 

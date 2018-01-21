@@ -17,19 +17,19 @@ class ConfigurationSource(XpmsBaseClass):
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
 
-    @pytest.allure.step('Clicking On Upload Button ')
+    #@pytest.allure.step('Clicking On Upload Button ')
     def Upload(self):
         self.pause()
         self.logger.info('Clicking on upload Field ')
         self.click(elements.IngestFileUploadEle)
 
-    @pytest.allure.step('Entering File in Ingest Field')
+    #@pytest.allure.step('Entering File in Ingest Field')
     def IngestFile(self,filepath):
         self.logger.info('Entering File Path Into Ingest Browse Field ',filepath)
         self.pause()
         self.enterFileInputText(elements.IngestFileBrowseEle,filepath)
 
-    @pytest.allure.step('Clicking On Source Links Under Configuration')
+    #@pytest.allure.step('Clicking On Source Links Under Configuration')
     def SelectSource(self):
         if not (self.isElementVisible(elements.SourceEle)):
             self.click(elements.ConfigurationEle)

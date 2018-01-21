@@ -25,7 +25,7 @@ class UserManagement(XpmsBaseClass):
         self.click(elements.AdminLogoutAvatar)
         self.pause()
         self.click(elements.AdminLogout)
-        self.pause()
+        #self.pageLoadPause()
 
     @allure.step('Verifying Welcome Text of User Admin Page ')
     def verifyWelcomeText(self,welcomeText):
