@@ -113,6 +113,7 @@ class XpmsBaseClass(object):
         try:
             temElement = self.getElement(element)
             self.logger.info('Into gettext method ')
+            #import pdb;pdb.set_trace()
             if(str(temElement.text).lower() == str(elementText).lower()):
                 return True
             else:

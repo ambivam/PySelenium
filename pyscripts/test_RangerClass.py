@@ -62,35 +62,32 @@ class TestLogin:
         # *************************************************************
         loginDriver = Login(self.driver)
         # *************************************************************
-        with pytest.allure.step('Logging Into Admin Page using username:' + username + ', password :' + password):
-            loginDriver.login(username, password)
-            usermanagementdriver = UserManagement(self.driver)
-        # *************************************************************
-        with pytest.allure.step('Verifying user is able to view :' + adminWelcomeText):
-            tempResult = usermanagementdriver.verifyWelcomeText(adminWelcomeText)
-            if (tempResult):
-                with pytest.allure.step('User is able to view :' + adminWelcomeText):
-                    self.logger.info('User is able to view :' + adminWelcomeText)
-            else:
-                with pytest.allure.step('User is unable to view :' + adminWelcomeText):
-                    self.logger.error('User is unable to view :' + adminWelcomeText)
-                usermanagementdriver.takeScreenShot()
-        # *************************************************************
-        with pytest.allure.step('Logging Out From Admin page'):
 
-            usermanagementdriver.logout()
-            tempResult = loginDriver.verifyLoginText(loginText)
-            if (tempResult):
-                with pytest.allure.step('Login text is displayed,hence verified User is successfully logged out of User admin page'):
-                    self.logger.info(
-                        'Login text is displayed,hence verified User is successfully logged out of User admin page')
-            else:
-                with pytest.allure.step('Login text is not displayed,hence verified User is not successfully logged out of User admin page'):
-                    self.logger.error(
-                        'Login text is not displayed,hence verified User is not successfully logged out of User admin page')
-                    loginDriver.takeScreenShot()
-            #XpmsBaseClass().pause()
-            #import pdb;pdb.set_trace()
+        #with pytest.allure.step('Logging Into Admin Page using username:' + username + ', password :' + password):
+        self.excelOperations.reportResult(self.logger,'Logging Into Admin Page using username:' + username + ', password :' + password,'')
+        loginDriver.login(username, password)
+        usermanagementdriver = UserManagement(self.driver)
+
+        # *************************************************************
+        #with pytest.allure.step('Verifying user is able to view :' + adminWelcomeText):
+        self.excelOperations.reportResult(self.logger, 'Verifying user is able to view :' + adminWelcomeText,'')
+        tempResult = usermanagementdriver.verifyWelcomeText(adminWelcomeText)
+        if (tempResult):
+            self.excelOperations.reportResult(self.logger,'User is able to view :' , adminWelcomeText)
+        else:
+            self.excelOperations.reportResult(self.logger,'User is unable to view :', adminWelcomeText)
+            usermanagementdriver.takeScreenShot()
+        # *************************************************************
+        #with pytest.allure.step('Logging Out From Admin page'):
+        self.excelOperations.reportResult(self.logger,'Logging Out From Admin page','')
+        usermanagementdriver.logout()
+        tempResult = loginDriver.verifyLoginText(loginText)
+        if (tempResult):
+            self.excelOperations.reportResult(self.logger,'Login text is displayed','hence verified User is successfully logged out of User admin page')
+        else:
+            self.excelOperations.reportResult(self.logger,'Login text is not displayed','hence verified User is not successfully logged out of User admin page')
+            loginDriver.takeScreenShot()
+
         # *************************************************************
 
     #*****************************************************************
@@ -127,13 +124,56 @@ class TestLogin:
             else:
                 with pytest.allure.step('Login text is not displayed,hence verified User logged into User admin page'):
                     self.logger.error('Login text is not displayed,hence verified User logged into User admin page')
-                loginDriver.takeScreenShot()
+                loginDriver.raiseException()
             #XpmsBaseClass.pause()
         # *************************************************************
+    # *****************************************************************
+    @pytest.allure.step(
+        'To Test The Login Functionality ,Verifying admin Welcome Text and Logging out of admin page using Invalid Creds')
+    @allure.story('Smoke', 'TC03_LoginAndLogoutUserAdminPageNegative2')
+    def test_adminLoginInvalidCreds2(self):
+        tempResult = False
+        username = self.excelOperations.getExcelData("TC03", "UserName")
+        password = self.excelOperations.getExcelData("TC03", "Password")
+        adminWelcomeText = self.excelOperations.getExcelData("TC03", "AdminWCText")
+        loginText = self.excelOperations.getExcelData("TC03", "LoginText")
+        url = self.excelOperations.getExcelData("TC03", "RangerURL")
+        # *************************************************************
+        with pytest.allure.step('Opening The Browser with URL : ' + url):
+            # self.driver.get(url)
+            self.driver.get(url)
+        # *************************************************************
+        loginDriver = Login(self.driver)
+        # *************************************************************
+        with pytest.allure.step(
+                                        'Logging Into Admin Page using invalid username:' + username + ', invalid password :' + password):
+            loginDriver.login(username, password)
+            # usermanagementdriver = UserManagement(driver)
+        # *************************************************************
+        # *************************************************************
+        with pytest.allure.step('Verifying user is still on the Login page :'):
+
+            try:
+                tempResult = loginDriver.verifyLoginText(loginText)
+                if (tempResult):
+                    with pytest.allure.step(
+                            'Login text is displayed,hence verified User is did not logged into User admin page'):
+                        self.logger.info(
+                            'Login text is displayed,hence verified User is did not logged into User admin page')
+                else:
+                    with pytest.allure.step(
+                            'Login text is not displayed,hence verified User logged into User admin page'):
+                        self.logger.error(
+                            'Login text is not displayed,hence verified User logged into User admin page')
+                    loginDriver.raiseException()
+            except:
+                pytest.fail("This test case failed",False)
+                # *************************************************************
 
 
 
-    #*****************************************************************
+
+        #*****************************************************************
 
 
 
