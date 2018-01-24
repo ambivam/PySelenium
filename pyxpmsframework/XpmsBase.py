@@ -30,8 +30,21 @@ class XpmsBaseClass(object):
     @staticmethod
     def getBrowser(browserName):
         if(str(browserName).lower() == 'chrome'):
-            filePath = os.path.abspath(__file__ + "/../../config/chromedriver")
-            XpmsBaseClass.browserDrivers['chrome'] = webdriver.Chrome(filePath)
+            #filePath = os.path.abspath(__file__ + "/../../config/chromedriver")
+            #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+            #logging.info('The driver path is :'+ filePath)
+            options = webdriver.ChromeOptions()
+            options.add_argument('--headless')
+            options.add_argument('--no-sandbox')
+            options.add_argument('window-size=1200x600')
+            options.binary_location='/home/PySeleniumProj/config/chromedriver'
+
+            #options.binary_location = '/usr/bin/google-chrome-stable'
+
+            #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
+            XpmsBaseClass.browserDrivers['chrome'] = webdriver.Chrome(chrome_options=options)
             return XpmsBaseClass.browserDrivers['chrome']
             #if(XpmsBaseClass.browserDrivers['chrome'] is None):
                 #filePath = os.path.abspath(__file__ + "/../../config/chromedriver")
