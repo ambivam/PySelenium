@@ -21,7 +21,7 @@ def main():
 
     print("The current working dir is :",os.getcwd())
 
-    os.system("pytest -n 3 pyscripts/ --alluredir TempAllure  --allure_stories="+testsToExecute)
+    os.system("pytest pyscripts/ --alluredir TempAllure  --allure_stories="+testsToExecute)
 
     #os.system("allure serve TempAllure")
 
