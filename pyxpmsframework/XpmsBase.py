@@ -9,7 +9,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.ui import Select
 from data import xpmsdata
 from datetime import datetime
-from selenium.webdriver.chrome.options import Options
 from allure.constants import AttachmentType
 from selenium.webdriver.remote.remote_connection import LOGGER
 import time
@@ -26,15 +25,16 @@ class XpmsBaseClass(object):
         self.driver = selenium_driver
         self.driver.maximize_window()
 
-
-
     @staticmethod
     def getBrowser(browserName):
         if(str(browserName).lower() == 'chrome'):
             filePath = os.path.abspath(__file__ + "/../../config/chromedriver")
             options = webdriver.ChromeOptions()
+            options.add_argument('disable-gpu')
+            options.add_argument('disable-dev-shm-usage')
+            options.add_argument('no-sandbox')
             options.add_argument('headless')
-            XpmsBaseClass.browserDrivers['chrome'] = webdriver.Chrome(filePath,chrome_options=options)
+            XpmsBaseClass.browserDrivers['chrome'] = webdriver.Chrome(filePath, chrome_options=options)
             return XpmsBaseClass.browserDrivers['chrome']
             #if(XpmsBaseClass.browserDrivers['chrome'] is None):
                 #filePath = os.path.abspath(__file__ + "/../../config/chromedriver")
